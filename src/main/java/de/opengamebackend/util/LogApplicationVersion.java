@@ -9,6 +9,9 @@ import javax.annotation.PostConstruct;
 
 @Component
 public class LogApplicationVersion {
+    private static final String APPLICATION_NAME_PROPERTY = "spring.application.name";
+    private static final String APPLICATION_VERSION_PROPERTY = "application.version";
+
     private Logger logger = LoggerFactory.getLogger(LogApplicationVersion.class);
 
     private Environment environment;
@@ -19,15 +22,17 @@ public class LogApplicationVersion {
 
     @PostConstruct
     public void postConstruct() {
-        String applicationName = this.environment.getProperty("spring.application.name");
-        String applicationVersion = this.environment.getProperty("application.version");
+        String applicationName = this.environment.getProperty(APPLICATION_NAME_PROPERTY);
+        String applicationVersion = this.environment.getProperty(APPLICATION_VERSION_PROPERTY);
 
         if (applicationName == null) {
-            applicationVersion = "spring.application.name";
+            logger.warn(APPLICATION_NAME_PROPERTY + " not set.");
+            return;
         }
 
         if (applicationVersion == null) {
-            applicationVersion = "application.version";
+            logger.warn(APPLICATION_VERSION_PROPERTY + " not set.");
+            return;
         }
 
         logger.info(applicationName + " " + applicationVersion);
