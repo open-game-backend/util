@@ -1,5 +1,7 @@
-package de.opengamebackend.util;
+package de.opengamebackend.util.logging;
 
+import de.opengamebackend.util.config.ApplicationConfig;
+import de.opengamebackend.util.config.SpringApplicationConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
